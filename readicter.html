@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAQ5JREFUOE9tk0sSxCAIRJv7nzdrp/oDYaxkFRUbeLQFPAfrKwAH3OJfPm96q6MLqKOt52h/HV5xIyjJAo4v6o4E7kT/mQ8KZZHin6tY61QAB/q8L3Uj3VSEEsfozwpahsdf5S06LeAwH9TwqPTLAwKb/rnPpVjU80JPuio34WYLWotyAMyEDrEYohRXRjFbRLpEZm0tVUABKeTEIssHFaBLkLd86fKBipaqSx7/qCXmMFTNgpm2gNoYBy2n7NZy/TWRSD2noQ3pgRKIytgZUoFGEwY9npmlCuhJhM96G9OqDccxxqYhPKRDylYONHlAXkbZ2us1uqqZwn5U/QgkNn5pK2941zN2NW3D/xfN0B99lLBf0naKxgAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon">
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet"> -->
+<title>readicter</title>
+<style>
+
+		::selection{
+					background: hsl(240,100%,48%);
+					color: #fff
+					}
+		::-moz-selection{
+					background: hsl(240,100%,48%);
+					color: #fff
+					}
+		::-moz-focus-inner { border: 0 }
+
+
+		::-webkit-scrollbar{
+							width: 10px;
+							background: transparent
+							}
+
+		::-webkit-scrollbar-track{ background: transparent }
+		::-webkit-scrollbar-thumb{
+								background: transparent;
+								border-top: 0 !important;
+								border-bottom: 0 !important;
+								border-left: 10px solid hsla( 240, 20%, 60%, .4 )
+								}
+
+
+	*{
+		margin: 0;
+		padding: 0;
+		font-family: sans-serif;
+		font-size: 14px;
+		letter-spacing: .5px;
+
+		tap-highlight-color: rgba(0,0,0,0) !important;
+		-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+		-moz-tap-highlight-color: rgba(0,0,0,0) !important;
+		-o-tap-highlight-color: rgba(0,0,0,0) !important;
+
+		tap-highlight-color: transparent !important;
+		-webkit-tap-highlight-color: transparent !important;
+		-moz-tap-highlight-color: transparent !important;
+		-o-tap-highlight-color: transparent !important;
+
+		outline: none !important;
+		-webkit-font-smoothing: antialiased;
+		-webkit-backface-visibility: hidden
+
+		}
+
+	body{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		font-family: sans-serif;
+		padding: 0;
+		margin: 0;
+		}
+
+		.texter{
+				position: fixed;
+				width: 50%;
+				height: 100%;
+				padding: 50px;
+				padding-top: 55px;
+				box-sizing: border-box;
+				background: #fff;
+				outline: none;
+				overflow: auto;
+				}
+				#texter_right{ right: 0; }
+
+				.texter:focus{
+							background: hsl(54deg 98% 81%);
+							}
+
+
+
+		#edit{
+			position: absolute;
+			padding: 6px 16px;
+			right: 0;
+			z-index: 1;
+			font-size: 18px !important;
+			cursor: pointer;
+			letter-spacing: 1px;
+			/* font-weight: bold; */
+			color: white;
+			/* font-family: 'M PLUS Rounded 1c', sans-serif; */
+			background: blue;
+			height: 24px;
+			line-height: 24px;
+			}
+/*			.readiting #edit{
+							font-size: 30px !important;
+							line-height: 30px;
+							}*/
+
+		li{
+			line-height: 16px;
+			padding: 3px 6px;
+			border-radius: 6px;
+			word-break: break-word;
+			}
+
+			.readiting li{
+						list-style-type: none !important;
+						}
+
+			.readiting li:hover,
+			.readiting .li_hover{
+								background: hsl(240deg 100% 90%);
+								}
+
+			.readicter li:hover,
+			.readicter .li_hover{
+								background: hsl(54deg 98% 81%);
+								}
+
+		#line{
+			position: absolute;
+			width: 2px;
+			height: 100%;
+			background: blue;
+			left: 50%;
+			margin-left: -1px;
+			}
+			/*.readiting #line{ background: red }*/
+			#line:after{
+						content: '';
+						position: absolute;
+						width: 2px;
+						background: #fff;
+						top: 36px;
+						bottom: 36px;
+						}
+
+@media( max-width: 600px ){
+							.readiting .texter{ padding: 50px 20px 50px 20px }
+							.readicter .texter{ padding: 50px 20px 50px 30px }
+							}
+
+
+		#notice_left,
+		#notice_right{
+					position: absolute;
+					top: 50%;
+					margin-top: -60px;
+					width: 50%;
+					padding: 10px;
+					box-sizing: border-box;
+					display: block;
+					text-align: center;
+					font-family: 'M PLUS Rounded 1c', sans-serif;
+					cursor: pointer;
+					}
+					#notice_right{ right: 0; }
+					.display_none{ display: none !important; }
+
+					svg{
+						transform: rotate(45deg);
+/*						border-radius: 50%;
+						background: hsl(54deg 98% 81%);*/
+						}
+		
+
+</style>
+</head>
+<body id="body">
+
+
+<div id="edit">readicter</div>
+<div id="texter_left" class="texter" spellcheck="false"></div>
+<div id="texter_right" class="texter" spellcheck="false"></div>
+
+<div id="notice_left" title="edit">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 160 160" enable-background="new 0 0 160 160" xml:space="preserve">
+						<path fill="#0000FF" d="M100,40.01v10H60v-10c0-2.77,1.12-5.27,2.93-7.07c1.81-1.81,4.31-2.93,7.07-2.93h20 C95.52,30.01,100,34.48,100,40.01z"/>
+						<polygon fill="#0000FF" points="60,60.01 100,60.01 100,110.01 80,129.99 60,110.01 "/>
+						</svg>
+						</div>
+
+<div id="notice_right" title="edit">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 160 160" enable-background="new 0 0 160 160" xml:space="preserve">
+						<path fill="#0000FF" d="M100,40.01v10H60v-10c0-2.77,1.12-5.27,2.93-7.07c1.81-1.81,4.31-2.93,7.07-2.93h20 C95.52,30.01,100,34.48,100,40.01z"/>
+						<polygon fill="#0000FF" points="60,60.01 100,60.01 100,110.01 80,129.99 60,110.01 "/>
+						</svg>
+						</div>
+
+
+
+
+<div id="line"></div>
+
+
+<script type="text/javascript">
+
+
+var $trim = function(s,m){s=s.replace(/^\s+|\s+$/gm,'');return m?s.replace(/\s+/gm,' '):s.replace(/\s+/gm,'')}; // !!Explain: quita espacios de un string. si se envia (string,0) quitara todos los espacios. si se envia (string,1) quita los espacios de los bordes, y deja un solo espacio entre cada palabra
+
+
+var $text_without_tags = function( text ){
+											return text.replace( /&(lt|gt);/g, function( strMatch, p1 ){ return (p1 == "lt") ? "<" : ">" })
+														.replace(/<\/?[^>]+(>|$)/g, "")
+											};
+
+var $text_in_phrases = function( text ){
+										return text.length < 1 ? '' : '<ol><li>'+ text.replace(/\,\s/g,',</li><li>')
+																					.replace(/\.\s/g,':</li><li>')
+																					.replace(/\:\s/g,':</li><li>')
+																					.replace(/\.\.\.\s/g,'...</li><li>')
+																					.replace(/\;\s/g,';</li><li>')
+																					.replace(/\!\s/g,'!</li><li>')
+																					.replace(/\?\s/g,'?</li><li>')
+																					+'</ol>'
+										};
+
+function readicter( /*from_side*/ ){
+
+					var n,
+						id,
+						lis,
+						from,
+						// from_side 	= from_side || '',
+						editable 	= texter_left.getAttribute( 'contenteditable' );
+						editable 	= editable==null||editable=='false'? true : false;
+
+							
+						texter_left.setAttribute( 'contenteditable', editable );
+						texter_right.setAttribute( 'contenteditable', editable );
+						
+
+						edit.innerHTML 	= editable? 'X' : 'readicter';
+						body.className 	= editable? 'readiting' : 'readicter';
+
+
+						texter_left.innerHTML 	= $text_in_phrases( $text_without_tags( texter_left.innerText ) );
+						texter_right.innerHTML 	= $text_in_phrases( $text_without_tags( texter_right.innerText ) );
+						
+
+
+						// @_explain: hover en ambos texter
+
+						function lisi( side ){
+
+											n 		= 0;
+											from 	= side=='left'? texter_left : texter_right;
+											lis 	= from.getElementsByTagName('li');
+
+											for( i in lis ){
+															if( lis[i].nodeType==1 ){
+																					n++;
+																					id = side + '_li_' + n;
+																					lis[i].setAttribute( 'id', id );
+																					lis[i].addEventListener( 'mouseover', li_hover )
+																					}
+																					}
+											};
+
+											lisi( 'left' );
+											lisi( 'right' );
+
+
+						// @_explain: coloco el foco.
+
+						var length_left 	= $trim( $text_without_tags( texter_left.innerText ), 1 ).length,
+							length_right 	= $trim( $text_without_tags( texter_right.innerText ), 1 ).length,
+							p 				= // from_side=='left' ? texter_left : 
+											  // from_side=='right' ? length_right :
+											  length_left < 1 ? texter_left :
+											  length_right < 1 ? texter_right : texter_left,
+							s 				= window.getSelection(),
+						    r 				= document.createRange();
+
+							r.setStart(p, 0);
+							r.setEnd(p, 0);
+							s.removeAllRanges();
+							s.addRange(r);
+
+
+							if( editable ){
+											notice_left.className = 
+											notice_right.className = 'display_none'
+											}
+										else{
+											notice_left.className = length_left > 0 ? 'display_none' : '';
+											notice_right.className = length_right > 0 ? 'display_none' : ''
+
+
+											try{
+												if( left_li_1.innerText.length < 1 ) left_li_1.parentNode.removeChild( left_li_1 )
+												if( right_li_1.innerText.length < 1 ) right_li_1.parentNode.removeChild( right_li_1 )
+												}
+												catch( error ){}
+
+											}
+
+
+						};
+
+
+
+
+edit.addEventListener( 'click', readicter );
+notice_left.addEventListener( 'click', readicter );
+notice_right.addEventListener( 'click', readicter );
+
+// notice_left.addEventListener( 'click', function(){ readicter('left') });
+// notice_right.addEventListener( 'click', function(){ readicter('right') });
+
+
+
+
+function li_hover( event ){
+
+						var li 		= event.target,
+							id 		= li.id,
+							side 	= id.indexOf( 'left_li_' ) != -1? 'left' : 'right',
+							n 		= side=='left'? parseInt(id.replace('left_li_','')) : parseInt(id.replace('right_li_','')),
+							alt 	= side=='left'? 'right' : 'left',
+							lis 	= document.getElementsByTagName('li');
+
+							for( i in lis ){
+											if( lis[i].nodeType==1 ){
+																	lis[i].className = ''
+																	}
+																	};
+
+							try{
+								document.getElementById( alt+'_li_'+n ).className = 'li_hover'
+								}
+								catch( error ){}
+
+						}
+
+
+</script>
+</body>
+</html>
