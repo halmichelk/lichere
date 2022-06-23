@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<link id="page_favicon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAQhJREFUOE9VkwsOAyAIQ+H+dwZTWj5uyWZQoD6qZ2ZampkbP7VmgMs0c2cc23MuzfG9BW4dJOBwn1d5Qz0EO+6RgRYKQAzXtVKFLZyW6SWo1a6CboH/ugL1luT/Fp8qj8icilPk9jzXKB4CIRWeuoLoNasqpeajF1e6XAQZY1jVVx92Sl0B5QKEGKcEMsCW7tl0CtbHZWZMwNqtAgxc0Sf184gY4HSPcyHu4H812/muuq5nBNuPxY4r/9wxLIfM32VwAa2VBFHWhgNJTPaG2TLAdAgsN5mpd8iaiccvzvzf+F+qOlaTMc8+ODFoqiyUvmPqse7rbFx6jRGRZYrvKR56qHmUz4R0/gEqAL3Ju0+yegAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon">
+<title>readitable</title>
+<style>
+
+		::selection{
+					background: hsl(240,100%,48%);
+					color: #fff
+					}
+		::-moz-selection{
+					background: hsl(240,100%,48%);
+					color: #fff
+					}
+		::-moz-focus-inner { border: 0 }
+
+
+		::-webkit-scrollbar{
+							width: 10px;
+							background: transparent
+							}
+
+		::-webkit-scrollbar-track{ background: transparent }
+		::-webkit-scrollbar-thumb{
+								background: transparent;
+								border-top: 0 !important;
+								border-bottom: 0 !important;
+								border-left: 10px solid hsla( 240, 20%, 60%, .4 )
+								}
+
+
+	*{
+		margin: 0;
+		padding: 0;
+		font-family: sans-serif;
+		font-size: 14px;
+		letter-spacing: .5px;
+		}
+
+	body{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		font-family: sans-serif;
+		padding: 0;
+		margin: 0;
+		}
+
+		.texter{
+				position: fixed;
+				width: 50%;
+				height: 100%;
+				padding: 50px;
+				box-sizing: border-box;
+				background: #fff;
+				outline: none;
+				overflow: auto;
+				}
+				#texter_right{ right: 0; }
+
+				.texter:focus{
+							background: hsl(60deg 100% 90%);
+							}
+
+
+
+		#edit{
+			position: absolute;
+			padding: 20px;
+			right: 0;
+			z-index: 1;
+			font-size: 16px !important;
+			cursor: pointer;
+			font-weight: bold;
+			color: blue;
+			}
+
+</style>
+</head>
+<body>
+
+
+<div id="edit">readitable</div>
+<div id="texter_left" class="texter" spellcheck="false"></div>
+<div id="texter_right" class="texter" spellcheck="false"></div>
+
+
+<script type="text/javascript">
+
+
+edit.addEventListener( 'click', () => {
+										var editable = texter_left.getAttribute( 'contenteditable' );
+											editable = editable==null||editable=='false'? true : false;
+
+												
+											texter_left.setAttribute( 'contenteditable', editable );
+											texter_right.setAttribute( 'contenteditable', editable );
+											
+
+											edit.innerHTML = editable? 'readiting' : 'readitable'
+
+											})
+
+
+</script>
+</body>
+</html>
