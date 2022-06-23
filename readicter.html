@@ -142,8 +142,8 @@
 						position: absolute;
 						width: 2px;
 						background: #fff;
-						top: 36px;
-						bottom: 36px;
+						top: 0;
+						bottom: 10%;
 						}
 
 @media( max-width: 600px ){
@@ -173,6 +173,7 @@
 /*						border-radius: 50%;
 						background: hsl(54deg 98% 81%);*/
 						}
+
 		
 
 </style>
@@ -184,14 +185,14 @@
 <div id="texter_left" class="texter" spellcheck="false"></div>
 <div id="texter_right" class="texter" spellcheck="false"></div>
 
-<div id="notice_left" title="edit">
+<div id="notice_left" title="edit" >
 					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 160 160" enable-background="new 0 0 160 160" xml:space="preserve">
 						<path fill="#0000FF" d="M100,40.01v10H60v-10c0-2.77,1.12-5.27,2.93-7.07c1.81-1.81,4.31-2.93,7.07-2.93h20 C95.52,30.01,100,34.48,100,40.01z"/>
 						<polygon fill="#0000FF" points="60,60.01 100,60.01 100,110.01 80,129.99 60,110.01 "/>
 						</svg>
 						</div>
 
-<div id="notice_right" title="edit">
+<div id="notice_right" title="edit" class="display_none">
 					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 160 160" enable-background="new 0 0 160 160" xml:space="preserve">
 						<path fill="#0000FF" d="M100,40.01v10H60v-10c0-2.77,1.12-5.27,2.93-7.07c1.81-1.81,4.31-2.93,7.07-2.93h20 C95.52,30.01,100,34.48,100,40.01z"/>
 						<polygon fill="#0000FF" points="60,60.01 100,60.01 100,110.01 80,129.99 60,110.01 "/>
@@ -226,13 +227,13 @@ var $text_in_phrases = function( text ){
 																					+'</ol>'
 										};
 
-function readicter( /*from_side*/ ){
+function readicter( from_side ){
 
 					var n,
 						id,
 						lis,
 						from,
-						// from_side 	= from_side || '',
+						from_side 	= from_side || '',
 						editable 	= texter_left.getAttribute( 'contenteditable' );
 						editable 	= editable==null||editable=='false'? true : false;
 
@@ -276,13 +277,13 @@ function readicter( /*from_side*/ ){
 
 						var length_left 	= $trim( $text_without_tags( texter_left.innerText ), 1 ).length,
 							length_right 	= $trim( $text_without_tags( texter_right.innerText ), 1 ).length,
-							p 				= // from_side=='left' ? texter_left : 
-											  // from_side=='right' ? length_right :
+							p 				= from_side=='left' ? texter_left : 
+											  from_side=='right' ? texter_right :
 											  length_left < 1 ? texter_left :
 											  length_right < 1 ? texter_right : texter_left,
 							s 				= window.getSelection(),
 						    r 				= document.createRange();
-
+console.log( p )
 							r.setStart(p, 0);
 							r.setEnd(p, 0);
 							s.removeAllRanges();
@@ -313,11 +314,11 @@ function readicter( /*from_side*/ ){
 
 
 edit.addEventListener( 'click', readicter );
-notice_left.addEventListener( 'click', readicter );
-notice_right.addEventListener( 'click', readicter );
+// notice_left.addEventListener( 'click', readicter );
+// notice_right.addEventListener( 'click', readicter );
 
-// notice_left.addEventListener( 'click', function(){ readicter('left') });
-// notice_right.addEventListener( 'click', function(){ readicter('right') });
+notice_left.addEventListener( 'click', function(){ readicter('left') });
+notice_right.addEventListener( 'click', function(){ readicter('right') });
 
 
 
