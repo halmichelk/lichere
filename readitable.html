@@ -98,7 +98,9 @@
 			font-family: 'M PLUS Rounded 1c', sans-serif;
 			}
 			.readiting #edit{
-							color: hsl(280deg 100% 40%);
+							/*color: red*/
+							font-size: 30px !important;
+							line-height: 30px;
 							}
 
 		li{
@@ -130,7 +132,7 @@
 			left: 50%;
 			margin-left: -1px;
 			}
-			.readiting #line{ background: hsl(280deg 100% 40%); }
+			/*.readiting #line{ background: red }*/
 			#line:after{
 						content: '';
 						position: absolute;
@@ -144,6 +146,26 @@
 							.readiting .texter{ padding: 50px 20px 50px 20px }
 							.readitable .texter{ padding: 50px 20px 50px 30px }
 							}
+
+
+		#notice_left,
+		#notice_right{
+					position: absolute;
+					bottom: 50%;
+					width: 50%;
+					padding: 10px;
+					box-sizing: border-box;
+					display: block;
+					text-align: center;
+					font-family: 'M PLUS Rounded 1c', sans-serif;
+					cursor: pointer;
+					}
+					#notice_right{ right: 0; }
+					.display_none{ display: none !important; }
+
+					svg{
+						transform: rotate(45deg);
+						}
 		
 
 </style>
@@ -155,7 +177,19 @@
 <div id="texter_left" class="texter" spellcheck="false"></div>
 <div id="texter_right" class="texter" spellcheck="false"></div>
 
+<div id="notice_left" title="edit">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="80px" height="80px" viewBox="0 0 160 160" enable-background="new 0 0 160 160" xml:space="preserve">
+						<path fill="#0000FF" d="M100,40.01v10H60v-10c0-2.77,1.12-5.27,2.93-7.07c1.81-1.81,4.31-2.93,7.07-2.93h20 C95.52,30.01,100,34.48,100,40.01z"/>
+						<polygon fill="#0000FF" points="60,60.01 100,60.01 100,110.01 80,129.99 60,110.01 "/>
+						</svg>
+						</div>
 
+<div id="notice_right" title="edit">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="80px" height="80px" viewBox="0 0 160 160" enable-background="new 0 0 160 160" xml:space="preserve">
+						<path fill="#0000FF" d="M100,40.01v10H60v-10c0-2.77,1.12-5.27,2.93-7.07c1.81-1.81,4.31-2.93,7.07-2.93h20 C95.52,30.01,100,34.48,100,40.01z"/>
+						<polygon fill="#0000FF" points="60,60.01 100,60.01 100,110.01 80,129.99 60,110.01 "/>
+						</svg>
+						</div>
 
 
 
@@ -164,6 +198,9 @@
 
 
 <script type="text/javascript">
+
+
+var $trim = function(s,m){s=s.replace(/^\s+|\s+$/gm,'');return m?s.replace(/\s+/gm,' '):s.replace(/\s+/gm,'')}; // !!Explain: quita espacios de un string. si se envia (string,0) quitara todos los espacios. si se envia (string,1) quita los espacios de los bordes, y deja un solo espacio entre cada palabra
 
 
 var $text_without_tags = function( text ){
@@ -182,23 +219,22 @@ var $text_in_phrases = function( text ){
 																					+'</ol>'
 										};
 
-
-edit.addEventListener( 'click', function(){
-
+function readitable( /*from_side*/ ){
 
 					var n,
 						id,
 						lis,
 						from,
-						editable = texter_left.getAttribute( 'contenteditable' );
-						editable = editable==null||editable=='false'? true : false;
+						// from_side 	= from_side || '',
+						editable 	= texter_left.getAttribute( 'contenteditable' );
+						editable 	= editable==null||editable=='false'? true : false;
 
 							
 						texter_left.setAttribute( 'contenteditable', editable );
 						texter_right.setAttribute( 'contenteditable', editable );
 						
 
-						edit.innerHTML 	=
+						edit.innerHTML 	= editable? 'X' : 'readitable';
 						body.className 	= editable? 'readiting' : 'readitable';
 
 
@@ -207,34 +243,75 @@ edit.addEventListener( 'click', function(){
 						
 
 
-					//	if( !editable ){
+						// @_explain: hover en ambos texter
 
-										function lisi( side ){
+						function lisi( side ){
 
-															n 		= 0;
-															from 	= side=='left'? texter_left : texter_right;
-															lis 	= from.getElementsByTagName('li');
+											n 		= 0;
+											from 	= side=='left'? texter_left : texter_right;
+											lis 	= from.getElementsByTagName('li');
 
-															for( i in lis ){
-																			if( lis[i].nodeType==1 ){
-																									n++;
-																									id = side + '_li_' + n;
-																									lis[i].setAttribute( 'id', id );
-																									lis[i].addEventListener( 'mouseover', li_hover )
-																									}
-																									}
-															};
+											for( i in lis ){
+															if( lis[i].nodeType==1 ){
+																					n++;
+																					id = side + '_li_' + n;
+																					lis[i].setAttribute( 'id', id );
+																					lis[i].addEventListener( 'mouseover', li_hover )
+																					}
+																					}
+											};
 
-															lisi( 'left' )
-															lisi( 'right' )
-														//	};
-
+											lisi( 'left' );
+											lisi( 'right' );
 
 
+						// @_explain: coloco el foco.
+
+						var length_left 	= $trim( $text_without_tags( texter_left.innerText ), 1 ).length,
+							length_right 	= $trim( $text_without_tags( texter_right.innerText ), 1 ).length,
+							p 				= // from_side=='left' ? texter_left : 
+											  // from_side=='right' ? length_right :
+											  length_left < 1 ? texter_left :
+											  length_right < 1 ? texter_right : texter_left,
+							s 				= window.getSelection(),
+						    r 				= document.createRange();
+
+							r.setStart(p, 0);
+							r.setEnd(p, 0);
+							s.removeAllRanges();
+							s.addRange(r);
+
+
+							if( editable ){
+											notice_left.className = 
+											notice_right.className = 'display_none'
+											}
+										else{
+											notice_left.className = length_left > 0 ? 'display_none' : '';
+											notice_right.className = length_right > 0 ? 'display_none' : ''
+
+
+											try{
+												if( left_li_1.innerText.length < 1 ) left_li_1.parentNode.removeChild( left_li_1 )
+												if( right_li_1.innerText.length < 1 ) right_li_1.parentNode.removeChild( right_li_1 )
+												}
+												catch( error ){}
+
+											}
+
+
+						};
 
 
 
-						});
+
+edit.addEventListener( 'click', readitable );
+notice_left.addEventListener( 'click', readitable );
+notice_right.addEventListener( 'click', readitable );
+
+// notice_left.addEventListener( 'click', function(){ readitable('left') });
+// notice_right.addEventListener( 'click', function(){ readitable('right') });
+
 
 
 
@@ -253,7 +330,10 @@ function li_hover( event ){
 																	}
 																	};
 
-							document.getElementById( alt+'_li_'+n ).className = 'li_hover'
+							try{
+								document.getElementById( alt+'_li_'+n ).className = 'li_hover'
+								}
+								catch( error ){}
 
 						}
 
