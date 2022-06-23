@@ -78,15 +78,56 @@
 			font-weight: bold;
 			color: blue;
 			}
+			.readiting #edit{
+							color: hsl(280deg 100% 40%);
+							}
+
+		li{
+			line-height: 16px;
+			padding: 3px 6px;
+			border-radius: 6px;
+			}
+
+			.readiting li{
+						list-style-type: none !important;
+						}
+
+			.readiting li:hover,
+			.readiting .li_hover{
+								background: hsl(280deg 100% 90%);
+								}
+
+			.readitable li:hover,
+			.readitable .li_hover{
+								background: hsl(60deg 100% 90%);
+								}
+
+		#line{
+			position: absolute;
+			top: 20%;
+			width: 2px;
+			height: 60%;
+			background: blue;
+			left: 50%;
+			margin-left: -1px;
+			}
+			.readiting #line{ background: hsl(280deg 100% 40%); }
 
 </style>
 </head>
-<body>
+<body id="body">
 
 
 <div id="edit">readitable</div>
 <div id="texter_left" class="texter" spellcheck="false"></div>
 <div id="texter_right" class="texter" spellcheck="false"></div>
+
+
+
+
+
+
+<div id="line"></div>
 
 
 <script type="text/javascript">
@@ -98,23 +139,90 @@ var $text_without_tags = function( text ){
 											};
 
 var $text_in_phrases = function( text ){
-										
+										return text.length < 1 ? '' : '<ol><li>'+ text.replace(/\,\s/g,',</li><li>')
+																					.replace(/\.\s/g,':</li><li>')
+																					.replace(/\:\s/g,':</li><li>')
+																					.replace(/\.\.\.\s/g,'...</li><li>')
+																					.replace(/\;\s/g,';</li><li>')
+																					.replace(/\!\s/g,'!</li><li>')
+																					.replace(/\?\s/g,'?</li><li>')
+																					+'</ol>'
 										};
 
 
 edit.addEventListener( 'click', function(){
-											var editable = texter_left.getAttribute( 'contenteditable' );
-												editable = editable==null||editable=='false'? true : false;
 
-													
-												texter_left.setAttribute( 'contenteditable', editable );
-												texter_right.setAttribute( 'contenteditable', editable );
-												
 
-												edit.innerHTML 			= editable? 'readiting' : 'readitable';
-												texter_left.innerHTML 	= $text_without_tags( texter_left.innerText );
-												texter_right.innerHTML 	= $text_without_tags( texter_right.innerText );
-												})
+					var n,
+						id,
+						lis,
+						from,
+						editable = texter_left.getAttribute( 'contenteditable' );
+						editable = editable==null||editable=='false'? true : false;
+
+							
+						texter_left.setAttribute( 'contenteditable', editable );
+						texter_right.setAttribute( 'contenteditable', editable );
+						
+
+						edit.innerHTML 	=
+						body.className 	= editable? 'readiting' : 'readitable';
+
+
+						texter_left.innerHTML 	= $text_in_phrases( $text_without_tags( texter_left.innerText ) );
+						texter_right.innerHTML 	= $text_in_phrases( $text_without_tags( texter_right.innerText ) );
+						
+
+
+					//	if( !editable ){
+
+										function lisi( side ){
+
+															n 		= 0;
+															from 	= side=='left'? texter_left : texter_right;
+															lis 	= from.getElementsByTagName('li');
+
+															for( i in lis ){
+																			if( lis[i].nodeType==1 ){
+																									n++;
+																									id = side + '_li_' + n;
+																									lis[i].setAttribute( 'id', id );
+																									lis[i].addEventListener( 'mouseover', li_hover )
+																									}
+																									}
+															};
+
+															lisi( 'left' )
+															lisi( 'right' )
+														//	};
+
+
+
+
+
+
+						});
+
+
+
+function li_hover( event ){
+
+						var li 		= event.target,
+							id 		= li.id,
+							side 	= id.indexOf( 'left_li_' ) != -1? 'left' : 'right',
+							n 		= side=='left'? parseInt(id.replace('left_li_','')) : parseInt(id.replace('right_li_','')),
+							alt 	= side=='left'? 'right' : 'left',
+							lis 	= document.getElementsByTagName('li');
+
+							for( i in lis ){
+											if( lis[i].nodeType==1 ){
+																	lis[i].className = ''
+																	}
+																	};
+
+							document.getElementById( alt+'_li_'+n ).className = 'li_hover'
+
+						}
 
 
 </script>
