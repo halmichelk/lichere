@@ -92,18 +92,29 @@
 <script type="text/javascript">
 
 
-edit.addEventListener( 'click', () => {
-										var editable = texter_left.getAttribute( 'contenteditable' );
-											editable = editable==null||editable=='false'? true : false;
+var $text_without_tags = function( text ){
+											return text.replace( /&(lt|gt);/g, function( strMatch, p1 ){ return (p1 == "lt") ? "<" : ">" })
+														.replace(/<\/?[^>]+(>|$)/g, "")
+											};
 
+var $text_in_phrases = function( text ){
+										
+										};
+
+
+edit.addEventListener( 'click', function(){
+											var editable = texter_left.getAttribute( 'contenteditable' );
+												editable = editable==null||editable=='false'? true : false;
+
+													
+												texter_left.setAttribute( 'contenteditable', editable );
+												texter_right.setAttribute( 'contenteditable', editable );
 												
-											texter_left.setAttribute( 'contenteditable', editable );
-											texter_right.setAttribute( 'contenteditable', editable );
-											
 
-											edit.innerHTML = editable? 'readiting' : 'readitable'
-
-											})
+												edit.innerHTML 			= editable? 'readiting' : 'readitable';
+												texter_left.innerHTML 	= $text_without_tags( texter_left.innerText );
+												texter_right.innerHTML 	= $text_without_tags( texter_right.innerText );
+												})
 
 
 </script>
