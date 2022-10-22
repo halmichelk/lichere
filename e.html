@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>do</title>
+</head>
+<body>
+
+
+
+<input type="button" onclick="f()">
+
+
+
+<script>
+function f(){
+			fetch( 'https://faas-nyc1-2ef2e6cc.doserverless.co/api/v1/web/fn-1e96d7cc-c232-4442-9957-079f22b987d0/pg/faas-testing-202210150236-1/?a=1' )
+											.then( data => { if( data.ok ){ return data.json() }else{ throw "error" } })
+											.then( data => console.log( data ) )
+											.catch( error => console.log( error ) )
+			};
+
+</script>
+</body>
+</html>
